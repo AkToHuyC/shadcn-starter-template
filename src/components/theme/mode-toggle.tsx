@@ -16,11 +16,13 @@ export function ModeToggle() {
       onClick={() => setTheme(next)}
       aria-label="Toggle theme"
     >
-      {theme === "dark" ? (
-        <Sun className="h-5 w-5" />
-      ) : (
-        <Moon className="h-5 w-5" />
-      )}
+      <div key={theme} className="inline-block animate-[spin_0.5s_ease-in-out]">
+        {theme === "dark" ? (
+          <Sun className="h-5 w-5" />
+        ) : (
+          <Moon className="h-5 w-5" />
+        )}
+      </div>
     </Button>
   );
 }

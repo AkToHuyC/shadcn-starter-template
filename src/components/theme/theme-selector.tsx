@@ -10,11 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import { useThemeConfig } from "@/components/theme/active-theme.tsx";
 import { Palette } from "lucide-react";
-import { Button } from "@/components/ui/button.tsx"; // Импортируем иконку палитры
+import { Button } from "@/components/ui/button.tsx";
 
 const DEFAULT_THEMES = [
   { name: "Default", value: "default" },
   { name: "Mono", value: "mono" },
+  { name: "Vintage", value: "vintage" },
 ];
 
 const COLOR_THEMES = [
@@ -54,8 +55,11 @@ export function ThemeSelector({ className }: React.ComponentProps<"div">) {
           {COLOR_THEMES.map((theme) => (
             <DropdownMenuItem
               key={theme.value}
-              onClick={() => setActiveTheme(theme.value)}
-              className={theme.value === activeTheme ? "font-semibold" : ""}
+              onClick={() =>
+                activeTheme === "default" && setActiveTheme(theme.value)
+              }
+              disabled={activeTheme !== "default"}
+              className={` ${theme.value === activeTheme ? "font-semibold" : ""} ${activeTheme !== "default" ? "cursor-not-allowed opacity-50" : ""} `}
             >
               {theme.name}
             </DropdownMenuItem>
