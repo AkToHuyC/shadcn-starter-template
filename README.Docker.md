@@ -1,4 +1,4 @@
-# 🐳 Dockerfile для ViteForge (Vite + React + TypeScript + Tailwind CSS + shadcn/ui)
+# 🐳 Dockerfile для Shadcn Starter Template
 
 Этот Dockerfile предназначен для контейнеризации фронтенд-проекта, построенного на базе Vite, React, TypeScript,
 Tailwind CSS и shadcn/ui.

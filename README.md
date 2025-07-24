@@ -1,6 +1,6 @@
-# ⚙️ ViteForge — Production-Ready React Blueprint
+# ⚙️ Shadcn Starter Template — Production-Ready React Blueprint
 
-**ViteForge** — это минималистичный и мощный стартовый шаблон на базе:
+**Shadcn Starter Template** — это минималистичный и мощный стартовый шаблон на базе:
 
 - ⚛️ React + TypeScript
 - 💨 Tailwind CSS
