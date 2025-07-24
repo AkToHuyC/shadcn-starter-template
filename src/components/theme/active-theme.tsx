@@ -9,6 +9,7 @@ import {
 } from "react";
 
 const DEFAULT_THEME = "default";
+const STORAGE_KEY = "active-theme";
 
 type ThemeContextType = {
   activeTheme: string;
@@ -24,16 +25,23 @@ export function ActiveThemeProvider({
   children: ReactNode;
   initialTheme?: string;
 }) {
-  const [activeTheme, setActiveTheme] = useState<string>(
-    () => initialTheme || DEFAULT_THEME,
-  );
+  // 1) При инициализации читаем из localStorage (если есть), иначе initialTheme или DEFAULT_THEME
+  const [activeTheme, setActiveTheme] = useState<string>(() => {
+    if (typeof window === "undefined") return initialTheme || DEFAULT_THEME;
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored || initialTheme || DEFAULT_THEME;
+  });
 
+  // 2) При каждом изменении activeTheme сохраняем его
   useEffect(() => {
-    Array.from(document.body.classList)
-      .filter((className) => className.startsWith("theme-"))
-      .forEach((className) => {
-        document.body.classList.remove(className);
-      });
+    localStorage.setItem(STORAGE_KEY, activeTheme);
+  }, [activeTheme]);
+
+  // 3) Применяем класс к body
+  useEffect(() => {
+    document.body.classList.forEach(
+      (cls) => cls.startsWith("theme-") && document.body.classList.remove(cls),
+    );
     document.body.classList.add(`theme-${activeTheme}`);
     if (activeTheme.endsWith("-scaled")) {
       document.body.classList.add("theme-scaled");
@@ -49,7 +57,7 @@ export function ActiveThemeProvider({
 
 export function useThemeConfig() {
   const context = useContext(ThemeContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error(
       "useThemeConfig must be used within an ActiveThemeProvider",
     );

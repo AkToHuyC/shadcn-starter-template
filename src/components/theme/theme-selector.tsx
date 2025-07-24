@@ -55,11 +55,9 @@ export function ThemeSelector({ className }: React.ComponentProps<"div">) {
           {COLOR_THEMES.map((theme) => (
             <DropdownMenuItem
               key={theme.value}
-              onClick={() =>
-                activeTheme === "default" && setActiveTheme(theme.value)
-              }
-              disabled={activeTheme !== "default"}
-              className={` ${theme.value === activeTheme ? "font-semibold" : ""} ${activeTheme !== "default" ? "cursor-not-allowed opacity-50" : ""} `}
+              onClick={() => setActiveTheme(theme.value)}
+              disabled={activeTheme === theme.value}
+              className={theme.value === activeTheme ? "font-semibold" : ""}
             >
               {theme.name}
             </DropdownMenuItem>
